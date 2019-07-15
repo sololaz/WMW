@@ -1,0 +1,257 @@
+/**
+ * Sections: Featured collection
+ * -----------------------------------------------------------------------------
+ * Base styling for the featured collection product grid.
+ *
+ */
+
+/**
+ * Breakpoints
+ */
+
+ @mixin respond-below($breakpoint) {
+
+ 
+    @if map-has-key($breakpoints, $breakpoint) {
+  
+      
+      $breakpoint-value: map-get($breakpoints, $breakpoint);
+  
+      
+      @media (max-width: ($breakpoint-value - 1)) {
+        @content;
+      }
+    
+   
+    } @else {
+  
+      
+      @warn 'Invalid breakpoint: #{$breakpoint}.';
+    }
+  }
+  
+
+
+$breakpoints: (
+    small: 576px
+  );
+  
+
+
+ /**
+ * Variables
+ */
+
+
+ @mixin font-text {
+    font-weight: $bold;
+    font-family: $font-family;
+ }
+
+@mixin heading-1-text {
+  font-size: 2.5em;
+  @include respond-below(small) {
+    font-size: 1.75em;
+}
+}
+
+@mixin heading-2-text {
+  font-size: 1.3em;
+  line-height: 1.2em;
+    @include respond-below(small) {
+        
+    }
+}
+
+@mixin heading-3-text {
+    font-size: 1.3em;
+    line-height: 1.2em;
+      @include respond-below(small) {
+        font-size: 1em;  
+      }
+  }
+
+@mixin paragraph-text {
+  font-size: 1.12em;
+  line-height: 1.8em;
+    @include respond-below(small) {
+        font-size: .9em;
+        line-height: 1.5em;
+    }
+}
+
+
+ /**
+ * Featured Collections
+ */
+
+.featured-collection {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 60px auto;
+    max-width: $grid-max-width;
+    text-align: center;
+    justify-content: center;
+
+    h2 {
+        color: $color-blue;
+        font-family:$font-family;
+        @include heading-1-text; 
+        margin: 20px
+    }
+
+    .description {
+        display: flex;
+        width: 100%;
+        @include respond-below(small) {
+            padding: 0 20px
+        }
+    }
+    
+    p {
+        color: $color-gray;
+        display: block;
+        width: 610px;
+        margin: 0 auto 41px;
+        @include paragraph-text;
+        font-weight: 300;
+    }
+}
+
+
+.carousel-cell {
+    width: 100%; /* full width */
+    height: 160px; /* height of carousel */
+    margin-right: 10px;
+  }
+
+
+.carousel {
+    width: 90vw;
+    height: 600px;
+    margin-bottom: 400px
+}
+
+.flickity-viewport {
+    width: 100%;
+    padding-top: 5px;
+}
+
+  .carousel-cell {
+    width: 306px;
+    height: 100%;
+    margin-right: 22px;
+    counter-increment: carousel-cell;
+
+        .addToCart {
+            position: absolute;
+            background: white;
+            width: 270px;
+            height: 47px;
+            bottom: 134px;
+            left: 50%;
+            margin-left: -135px;
+            opacity: 0;
+            margin-bottom: -10px;
+            text-align: center;
+            transition: $all-transitions ;
+            @include respond-below(small) {
+                opacity: 1;
+                margin-bottom: 0px;
+            }
+            
+                input {
+                    color: $color-blue;
+                    background: transparent;
+                    width: 270px;
+                    height: 47px;
+                    @include font-text;
+                    padding-top: 3px;
+                    border: none;
+                }
+                    :hover {
+                        background: $color-blue;
+                        color: #fff
+                    }
+        }
+
+            img {
+                opacity: .5;
+                transition: $all-transitions;
+                
+            }
+            :hover  {
+                .addToCart {
+                    opacity: 1;
+                    margin-bottom: 0
+                }   
+
+                .swing {
+                    -webkit-transform-origin: top center;
+                    transform-origin: top center;
+                    -webkit-animation-name: swing;
+                    animation-name: swing;
+                  }
+                  
+
+                    p { 
+                        color: $color-blue;
+                    }
+
+                    img {
+                        opacity: 1
+                    }
+            }
+
+
+        p {
+            text-align: left;
+            color: $color-gray;
+            @include font-text;
+            @include heading-3-text; 
+            width: auto;
+            margin-top: 15px;
+            margin-bottom: 7px;
+            @include respond-below(small) {
+                color:$color-blue ;
+            }
+        }
+
+        .tag-sales {
+            position: absolute;
+            width: 56px;
+            height: 26px;
+            right: 10px;
+            background: $color-blue;
+            color: #fff ;
+            padding-top: 4px;
+            font-size: .9em;
+            top: 10px;
+            text-transform: capitalize;
+            @include font-text;
+            text-align: center;
+            z-index: 2; 
+        }
+            
+
+        a {
+            color: $color-gray;
+            text-decoration: none;
+            text-align: left;
+
+            
+        }
+
+        
+  }
+  .flickity-prev-next-button {margin-top: -60px;}
+  .flickity-prev-next-button.next {right: -52px;}
+  .flickity-prev-next-button.previous {left: -52px;}
+
+  .flickity-page-dots .dot {
+      width: 7px;
+      height: 7px
+  }
+
+
+

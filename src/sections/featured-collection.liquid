@@ -1,0 +1,81 @@
+{% comment %}
+------------------------------------------------------------------------------
+  Section: Featured collection
+  - This the main section that you should be working on
+  - Main styling is done in /styles/sections/featured-collection.scss
+------------------------------------------------------------------------------
+{% endcomment %}
+
+
+
+
+<section class="featured-collection" data-section-id="{{ section.id }}" data-section-type="featured-collection">
+  {%- assign collection = collections[section.settings.collection] -%}
+
+  <h2>{{ collection.title | escape }}</h2>
+
+  <div class="description"><p>{{ collection.description }}</p></div>
+
+  <div class="carousel" >
+  {% for product in collection.products limit: 6 %}
+    {% assign current_variant = product.selected_or_first_available_variant %}
+    <div class="carousel-cell">
+    <a href="{{ product.url | within: collection }}">
+      <div>
+        
+          {% for tag in product.tags %}
+          {% if tag contains 'badge' %}
+               <div class="tag-sales animated swing "> {{ tag | remove: "badge:" }} </div>
+          {% endif %}
+        {% endfor %}
+
+        {% if product.featured_image != blank %}
+          {{ product.featured_image | img_url: 'large' | img_tag }}
+        {% endif %}
+        <span js-ajax-cart="addToCart" data-variant-id="{{ current_variant.id }}" data-quantity="1" class="addToCart">
+
+            <form method="post" action="/cart/add">
+              <input type="hidden" name="id" value="{{ product.variants.first.id }}" />
+              <input type="submit" value="Add to cart" class="btn" />
+            </form> 
+            
+        </span>
+      </div>
+
+      <div>
+        <p>{{ product.title | escape }}</p>
+
+        <span>
+          {% include 'product-price' %}
+        </span>
+      </div>
+    </a>
+  </div>
+  {% endfor %}
+</div>
+</section>
+
+{% schema %}
+  {
+    "name": "Featured collection",
+    "settings": [
+      {
+        "type": "text",
+        "id": "title",
+        "label": "Heading",
+        "default": "Featured collection"
+      },
+      {
+        "id": "collection",
+        "type": "collection",
+        "label": "Collection"
+      }
+    ],
+    "presets": [
+      {
+        "name": "Featured collection",
+        "category": "Collection"
+      }
+    ]
+  }
+{% endschema %}
